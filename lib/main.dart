@@ -2,6 +2,8 @@ import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'model/AppBar.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -98,42 +100,48 @@ class _MyHomePageState extends State<MyHomePage> {
         throw UnimplementedError('no widget for $selectedIndex');
     }
 
-    return Scaffold(
-      body: Row(
-        children: [
-          SafeArea(
-            child: NavigationRail(
-                extended: false,
-                destinations: [
-                  NavigationRailDestination(
-                    icon: Icon(Icons.home),
-                    label: Text('Home'),
-                  ),
-                  NavigationRailDestination(
-                    icon: Icon(Icons.favorite),
-                    label: Text('Favorites'),
-                  ),
-                ],
-                //selectedIndex: 0,
-                //onDestinationSelected: (value) {
-                // print('selected: $value');
-                //},
-                selectedIndex: selectedIndex, // ← Change to this.
-                onDestinationSelected: (value) {
-                  // ↓ Replace print with this.
-                  setState(() {
-                    selectedIndex = value;
-                  });
-                }),
-          ),
-          Expanded(
-            child: Container(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              //child: GeneratorPage(),
-              child: page,  // ← Here.
+    return Center(
+      child: Scaffold(
+        appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(50),
+            child: MyAppBar( title: " Hello To My Awesome Namer ",)),
+        body: Row(
+          children: [
+            SafeArea(
+
+              child: NavigationRail(
+                  extended: false,
+                  destinations: [
+                    NavigationRailDestination(
+                      icon: Icon(Icons.home),
+                      label: Text('Home'),
+                    ),
+                    NavigationRailDestination(
+                      icon: Icon(Icons.favorite),
+                      label: Text('Favorites'),
+                    ),
+                  ],
+                  //selectedIndex: 0,
+                  //onDestinationSelected: (value) {
+                  // print('selected: $value');
+                  //},
+                  selectedIndex: selectedIndex, // ← Change to this.
+                  onDestinationSelected: (value) {
+                    // ↓ Replace print with this.
+                    setState(() {
+                      selectedIndex = value;
+                    });
+                  }),
             ),
-          ),
-        ],
+            Expanded(
+              child: Container(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                //child: GeneratorPage(),
+                child: page,  // ← Here.
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
